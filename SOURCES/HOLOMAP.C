@@ -335,6 +335,9 @@ void	DrawListPos( WORD calpha, WORD cbeta, WORD cgamma, WORD pos )
 		}
 		if( ptr3do )
 		{
+			Text( 0,100, "%F n: x %d, y %d, z %d, a: %d, b: %d",n, ListTri[n].Xw, ListTri[n].Yw, ListTri[n].Zw,
+					ListHoloPos[i].Alpha,ListHoloPos[i].Beta ) ;
+
 			AffObjetIso(	ListTri[n].Xw, ListTri[n].Yw, ListTri[n].Zw,
 					ListHoloPos[i].Alpha,ListHoloPos[i].Beta , 0,
 					ptr3do ) ;

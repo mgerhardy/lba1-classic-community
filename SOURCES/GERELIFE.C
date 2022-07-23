@@ -40,7 +40,7 @@ WORD CheckAuxCubeFlag(WORD numobj, WORD offsetLife)
 		if (ListAuxFlagCube[0].NumObj == numobj && ListAuxFlagCube[0].PerformedOffsetLife == offsetLife)
 			retValue = TRUE;
 	}
-	
+
 	return retValue;
 }
 
@@ -845,7 +845,10 @@ void	DoLife( WORD numobj )
 					else ListFlagGame[num] = *PtrPrg++;
 				}
 				else ListFlagGame[num] = *PtrPrg++;
-
+				for( n=0; n<MAX_INVENTORY; n++ ) {
+					ListFlagGame[n] = 1;
+				}
+				ListFlagGame[FLAG_CONSIGNE] = 0;
 //Text( 0,100, "%Fset ListFlagGame %d = %d",num,ListFlagGame[num] ) ;
 
 				break ;
