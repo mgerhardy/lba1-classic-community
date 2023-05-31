@@ -384,7 +384,7 @@ void	SetFadePalOnLoad()
 		//Set dark pal on museum when alarm is active (num cube is 43)
 		if (HasLoadedInventoryOnSave && NumCube == 43)
 		{
-			int indexMuseumAlarm = 41; // index 41 is changed when activating the museum alarm 
+			int indexMuseumAlarm = 41; // index 41 is changed when activating the museum alarm
 
 			//If the flag is set in ListFlagGame, apply the dark pal
 			if (indexMuseumAlarm < MAX_FLAGS_GAME && ListFlagGame[indexMuseumAlarm])
@@ -553,7 +553,7 @@ void	ChangeCube()
 		SaveBeta = ListObjet[NUM_PERSO].Beta ;
 		SaveGame() ;
 	}
-	
+
 	RestartPerso() ;
 
 	StartInitAllObjs();
@@ -643,9 +643,10 @@ void	HitObj( WORD numhitter, WORD num, WORD hitforce, WORD beta )
 		if( num == NUM_PERSO )
 		{
 			LastJoyFlag = TRUE ;
-		}
+		} else {
 
 		ptrobjt->LifePoint -= hitforce ;
+		}
 
 		/* attention dans l'outil LifePoint est un word
 		si ca devient un UBYTE pas de signe */
@@ -1843,6 +1844,7 @@ if( APtObj->Flags & CHECK_BRICK_COL )
 		DoCornerReajust( APtObj->Xmax, APtObj->Ymin, APtObj->Zmin, 2 ) ;
 		DoCornerReajust( APtObj->Xmax, APtObj->Ymin, APtObj->Zmax, 4 ) ;
 		DoCornerReajust( APtObj->Xmin, APtObj->Ymin, APtObj->Zmax, 8 ) ;
+		Text( 10,10 + numobj * 10, "%Fa: %d, col1: %d, penguin: %d", numobj, Col1, NumPingouin ) ;
 	}
 
 	// choc si on court
@@ -1861,7 +1863,7 @@ if( APtObj->Flags & CHECK_BRICK_COL )
 		AND (WorldColBrick( X0, Nyw+256, Y0 ) != 0) )
 		{
 			// If wall collision damage flag is set to enabled, execute code for animating a collision and decreasing life. If disabled, ignore.
-			if (WallColDamageEnabled != 0) 
+			if (WallColDamageEnabled != 0)
 			{
 				InitSpecial(	APtObj->PosObjX,
 						APtObj->PosObjY+1000,
@@ -2328,8 +2330,10 @@ void	DoDir( WORD numobj  )
 	case MOVE_RANDOM:
 		if( !(ptrobj->WorkFlags & ANIM_MASTER_ROT) )
 		{
+				//printf("random move %d\n", numobj);
 			if( ptrobj->Col & 128 )
 			{
+				//printf("random move collision\n");
 				angle = (ptrobj->Beta + (rand()&511) - 256 + 512) & 1023 ;
 				InitRealAngleConst(	ptrobj->Beta,
 							angle,

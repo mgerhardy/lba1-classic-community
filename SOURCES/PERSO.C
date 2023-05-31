@@ -111,7 +111,7 @@ WORD validatePersoPosition()
 	if (ptrobj->Body == -1 || ptrobj->WorkFlags & OBJ_DEAD) // if dead, not valid
 		return FALSE;
 
-	if (ptrobj->Move != MOVE_MANUAL) // if player input for movement is disabled, not a valid position 
+	if (ptrobj->Move != MOVE_MANUAL) // if player input for movement is disabled, not a valid position
 		return FALSE;
 
 	if (Comportement == C_PROTOPACK && isObjectInAnimation(ptrobj, GEN_ANIM_MARCHE)) // if behavior is in protopack, and moving forward (flying), do not save position
@@ -162,7 +162,7 @@ void	InitGameLists()
 	}
 	for( i=0; i<MAX_INVENTORY; i++ )
 	{
-		ListFlagInventory[i] = 0 ;
+		ListFlagInventory[i] = 1 ;
 	}
 	for( i=0; i<4; i++ )
 	{
@@ -214,7 +214,7 @@ void	InitGame( int argc, UBYTE *argv[] )
 /*-------------------------------------------------------------------------*/
 /* init FIRST scene files */
 
-	NewCube = 0 ;
+	NewCube = 63 ;
 	NumCube = -1 ;
 
 	FlagTheEnd = -1 ;
@@ -775,13 +775,13 @@ startloop:
 				while( Key ) ;
 			}
 		}
-		
+
 		// Toggle wall collision damage on/off by pressing F12.
 		if ( MyKey == K_F12 )
 		{
 			// WallColDamageEnabled set to values 0 or 1 (disabled and enabled)
 			SaveTimer() ;
-			TestRestoreModeSVGA( TRUE ) ;			
+			TestRestoreModeSVGA( TRUE ) ;
 			WallColDamageEnabled = (WallColDamageEnabled + 1) % 2 ;
 			InfoWallCollisionDamage();
 			while ( Key ) ;
@@ -990,7 +990,7 @@ startloop:
 						FLAG_CLOVER,
 						0, 0,
 						0, 0, 3);
-					
+
 					//FirstTime = TRUE ;
 					//FlagFade = TRUE ;
 					goto startloop ;
@@ -1311,10 +1311,9 @@ void	TheEnd( WORD num, UBYTE *error )
 }
 
 /*══════════════════════════════════════════════════════════════════════════*/
-
-int	__far	Critical_Error_Handler( unsigned deverr,
+int	_FAR	Critical_Error_Handler( unsigned deverr,
 					unsigned errcode,
-					unsigned far *devhdr )
+					unsigned _FAR *devhdr )
 {
 	return( _HARDERR_RETRY )	;
 }
@@ -1358,7 +1357,7 @@ void	main( int argc, UBYTE *argv[] )
 	ULONG	memotimer ;
 	UBYTE	string[256];
 
-	// _harderr_( Critical_Error_Handler )	;
+	_harderr( Critical_Error_Handler )	;
 
 #ifdef	DEBUG_TOOLS
 	MemoMemory = (ULONG)Malloc( -1 ) ;	// memory at start
@@ -1418,7 +1417,7 @@ void	main( int argc, UBYTE *argv[] )
 	Screen = Malloc( 640*480 + 500 ) ;	// + decomp marge
 	if( !Screen )	TheEnd( NOT_ENOUGH_MEM, "Screen" ) ;
 
-#ifndef	DEBUG_TOOLS
+#if 1
 
 // logo adeline
 	AdelineLogo() ;
@@ -1558,7 +1557,7 @@ void	main( int argc, UBYTE *argv[] )
 	}
 
 
-#ifndef	DEBUG_TOOLS
+#if 1
 // bumper
 	FadeToBlack( PalettePcx ) ;
 

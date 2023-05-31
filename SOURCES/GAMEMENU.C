@@ -94,7 +94,7 @@ UWORD	SavedGameMenu[] = {
 			0,	// selected
 #ifndef DISABLE_COPY_SAVED_GAME
 			3,	// nb entries
-#else		
+#else
 			2,	// nb entries
 #endif
 			0,	// y from top.
@@ -196,8 +196,8 @@ void MenuInitGame(int argc, UBYTE* argv[], WORD showIntroduction)
 
 	InitGame(argc, argv);
 
-	if (showIntroduction)
-		Introduction();
+	// if (showIntroduction)
+	// 	Introduction();
 
 	if (retMainLoop = MainLoop())
 	{
@@ -1222,7 +1222,7 @@ WORD	PlayerGameList( UBYTE **ptrlistname, UBYTE *listname, WORD showAutoSave, WO
 	{
 		int i = 0;
 		UBYTE string[256];
-		
+
 		GetMenuMultiTextAux(953, string);
 
 		*ptrlistname++ = listname;
@@ -1370,7 +1370,7 @@ void SaveGameWithName(char* fileName, WORD isAutoSave)
 		//Check if WindowsFilenameSaving flag in LBA.CFG is set to ON
 		if (FlagWindowsFilenameSaving)
 		{
-			//Added this check to make sure if there are S0000.LBA files that can be replaced. This allows to replace save files from previous versions without creating new ones (like TLBA Classic S0000.LBA save files) 
+			//Added this check to make sure if there are S0000.LBA files that can be replaced. This allows to replace save files from previous versions without creating new ones (like TLBA Classic S0000.LBA save files)
 			//No need to perform this validation if we're doing an auto save
 			if (!isAutoSave && FindPlayerFile())
 			{
@@ -1379,7 +1379,7 @@ void SaveGameWithName(char* fileName, WORD isAutoSave)
 			}
 			else
 			{
-				//If the file doesn't exist, create a new one with fileName as name, or replace if it's auto save or existing and not using S0000.LBA naming 
+				//If the file doesn't exist, create a new one with fileName as name, or replace if it's auto save or existing and not using S0000.LBA naming
 				strcpy(savePath, PATH_RESSOURCE);
 				strcat(savePath, fileName);
 				strcat(savePath, ".LBA");
@@ -1508,7 +1508,7 @@ void	LoadGame()
 	WORD	wword ;
 	UBYTE	wbyte ;
 	UBYTE	*ptr ;
-	int successInventory = 0, successKeys = 0, successListObjets = 0, successNbZones = 0, successListZones = 0, 
+	int successInventory = 0, successKeys = 0, successListObjets = 0, successNbZones = 0, successListZones = 0,
 		successListExtras = 0, successNbListFlagCube = 0, successListFlagCube = 0, successLastValidPerso = 0,
 		successMecaPenguin = 0, successNbListAuxFlagCube = 0, successListAuxFlagCube = 0;
 	int i;
@@ -1527,7 +1527,7 @@ void	LoadGame()
 
 // list flag game
 	Read( handle, &wbyte, 1 ) ;	// nb octets
-	
+
 	successInventory = Read( handle, ListFlagGame, wbyte ) ;
 
 	NewCube = 0 ;
@@ -1605,14 +1605,14 @@ void	LoadGame()
 	Close( handle ) ;
 
 	//These flags are here to help the code identify if objects in a scene are coming from a save or from the HQR file. They also help with keeping retro compatibility with previous version save files
-	HasLoadedSave = successListObjets || successListExtras || 
-					successNbZones || successListZones || 
+	HasLoadedSave = successListObjets || successListExtras ||
+					successNbZones || successListZones ||
 					successKeys || successNbListFlagCube ||
 					successListFlagCube || successLastValidPerso ||
 					successMecaPenguin || successNbListAuxFlagCube ||
 					successListAuxFlagCube;							/*If any of these are present in the save file,
-																	it means we are loading a new version of the save files. If not, it means we are loading a previous version AUTO save file, 
-																	therefore the code should run the same logic for previous versions.	
+																	it means we are loading a new version of the save files. If not, it means we are loading a previous version AUTO save file,
+																	therefore the code should run the same logic for previous versions.
 																	Inventory is not checked because it was already in original save files.*/
 	HasLoadedInventoryOnSave = successInventory;
 	HasLoadedListObjetsOnSave = successListObjets;
@@ -2067,7 +2067,7 @@ WORD	ChoosePlayerName( WORD mess, WORD showAutoSave, WORD showNewGame )
 
 		if( Fire )
 		{
-			// New Game option is in index 0, return 2 if this is selected, else return 1 
+			// New Game option is in index 0, return 2 if this is selected, else return 1
 			retval = showNewGame && select == 0 ? 2 : 1 ;
 			break ;
 		}
@@ -2173,7 +2173,7 @@ void	DrawOneChoice( WORD x, WORD y, WORD type, WORD num, WORD select )
 
 	CoulFont( COUL_TEXT_MENU ) ;
 	GetMenuMultiTextAux( num, string ) ;
-	
+
 	Font( x - SizeFont( string )/2, y-18, string ) ;
 
 	// flip
@@ -2189,7 +2189,7 @@ void	InfoWallCollisionDamage()
 
 	WORD 	num = WallColDamageEnabled ? 234 : 34 ;
 	char* 	infoText = GetCustomizedMultiText( num );
-	
+
 	x = 25;
 	y = 50;
 
@@ -2842,7 +2842,7 @@ LONG	MainGameMenu()
 			case 21: // load
 
 				if( !ChoosePlayerName( 21, 1, 0 ) ) break ;
-				
+
 				MenuInitGame(-1,0,0);
 				while( Key OR Fire ) ; // provisoire
 				break ;

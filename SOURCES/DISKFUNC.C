@@ -122,7 +122,7 @@ WORD	LoadScene( WORD numscene )
 		for (n = 1; n < NbObjets; n++, ptrobj++)
 		{
 			T_OBJET* savedPtrObj;
-			
+
 			if (HasLoadedListObjetsOnSave)
 			{
 				savedPtrObj = malloc(sizeof(T_OBJET));
@@ -191,7 +191,7 @@ WORD	LoadScene( WORD numscene )
 			ptrobj->PtrLife = PtrSce;
 			PtrSce = PtrSce + sizetoload;
 
-			//If loading from a save, replace content with the saved one (but keep the SCENE.HQR file reading flow from LoadScene for other necessary readings afterwards) 
+			//If loading from a save, replace content with the saved one (but keep the SCENE.HQR file reading flow from LoadScene for other necessary readings afterwards)
 			if (HasLoadedListObjetsOnSave && savedPtrObj)
 			{
 				//If object was saved while getting hit, starting animation will be the one from SCENE.HQR file (this is to avoid a glitch when a NPC is in the middle of an animation when a save is made)
@@ -222,6 +222,9 @@ WORD	LoadScene( WORD numscene )
 				free(savedPtrObj);
 			}
 		}
+// only tank in scene 63
+	NbObjets = 1;
+	ListObjet[1].OffsetTrack = 2;
 
 // zone declechement: ZONE
 		NbZones = GET_WORD ;
